@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist Flutuante</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        color: #fff;
+        padding: 20px;
+    }
+    .popup-checklist {
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 8px;
+        width: 280px;
+        margin: auto;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    .popup-checklist h2 {
+        margin-top: 0;
+        font-size: 1.2em;
+        color: #ff6600;
+    }
+    label {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.9em;
+    }
+    input[type="text"], select, textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px;
+        margin: 5px 0 10px;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9em;
+        background-color: #333;
+        color: #fff;
+    }
+    textarea {
+        resize: vertical;
+    }
+    .checklist-group {
+        margin: 10px 0;
+    }
+    .checklist-group label {
+        display: block;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        border: none;
+        border-radius: 4px;
+        font-size: 1em;
+        cursor: pointer;
+    }
+    .btn-enviar {
+        background-color: #ff6600;
+        color: white;
+    }
+    .btn-reset {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
+</head>
+<body>
+
+<div class="popup-checklist">
+    <h2>Guia de Análise</h2>
+
+    <label for="idCliente">ID do Cliente:</label>
+    <input type="text" id="idCliente" placeholder="Digite o ID aqui">
+
+    <label for="status">Status:</label>
+    <select id="status">
+        <option value="Paga">Paga</option>
+        <option value="Aceitar anuencia">Aceitar anuencia</option>
+        <option value="Pendencia">Pendencia</option>
+        <option value="Cancelada">Cancelada</option>
+        <option value="Validado complience">Validado complience</option>
+        <option value="Falta pagar">Falta pagar</option>
+    </select>
+
+    <label for="obs">Observação:</label>
+    <textarea id="obs" rows="3" placeholder="Digite a observação..."></textarea>
+    
+    <div class="checklist-group">
+        <label><input type="checkbox"> Idade</label>
+        <label><input type="checkbox"> Estado</label>
+        <label><input type="checkbox"> Geolocalização</label>
+        <label><input type="checkbox"> Conta</label>
+        <label><input type="checkbox"> Contracheque</label>
+        <label><input type="checkbox"> RG x Dados</label>
+        <label><input type="checkbox"> Selfie</label>
+        <label><input type="checkbox"> Fluxo</label>
+        <label><input type="checkbox"> Score</label>
+        <label><input type="checkbox"> Valor</label>
+        <label><input type="checkbox"> Averbação</label>
+    </div>
+
+    <button class="btn-enviar" onclick="enviarDados()">Enviar para Planilha</button>
+    <button class="btn-reset" onclick="resetChecklist()">Resetar Checklist</button>
+</div>
+
+<script>
+    function enviarDados() {
+        const idCliente = document.getElementById('idCliente').value.trim();
+        const statusValor = document.getElementById('status').value;
+        const observacaoValor = document.getElementById('obs').value.trim();
+
+        if (!idCliente || !statusValor) {
+            alert("Preencha o ID e o Status.");
+            return;
+        }
+
+        const dataToSend = {
+            'ID': idCliente,
+            'status': statusValor,
+            'Observação': observacaoValor
+        };
+        
+        const url_api = 'https://script.google.com/macros/s/AKfycbw3UoIbMvYvks6UCR6NbQAtTFrLAC1-_I13PZeNufwNpqlAAEXp2AvnFk2ZCcsUD_Ck/exec';
+
+        fetch(url_api, {
+            method: 'POST',
+            body: JSON.stringify(dataToSend),
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8",
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === 'success'){
+                alert("Dados enviados com sucesso!");
+                resetChecklist();
+            } else {
+                throw new Error(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Erro detalhado:', error);
+            alert("Ocorreu um erro ao enviar os dados. Verifique o console (F12).");
+        });
+    }
+
+    function resetChecklist() {
+        document.querySelectorAll('.checklist-group input[type="checkbox"]').forEach(cb => cb.checked = false);
+        document.getElementById('idCliente').value = '';
+        document.getElementById('obs').value = '';
+        document.getElementById('status').value = 'Paga';
+    }
+</script>
+
+</body>
+</html>
