@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Validação</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #0d0d0d;
+        color: #fff;
+    }
+    header {
+        background-color: #0d0d0d;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 2px solid #ff6600;
+    }
+    header h1 {
+        color: #ff6600;
+        margin: 0;
+    }
+    .links-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        padding: 20px;
+    }
+    .link-card {
+        background-color: #1a1a1a;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #ff6600;
+        transition: 0.3s;
+    }
+    .link-card:hover {
+        background-color: #ff6600;
+        color: #000;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .checklist-btn {
+        display: block;
+        width: 200px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #ff6600;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .checklist-btn:hover {
+        background-color: #e65c00;
+    }
+</style>
+</head>
+<body>
+<header>
+    <h1>Painel de Validação</h1>
+</header>
+
+<div class="links-container">
+    <div class="link-card"><a href="https://portal.presencabank.com.br/" target="_blank">Bank</a></div>
+    <div class="link-card"><a href="https://www.siapenet.gov.br/Portal/Servico/Apresentacao.asp" target="_blank">SiapeNet</a></div>
+    <div class="link-card"><a href="https://lemitti.com/auth/login" target="_blank">Lemit</a></div>
+    <div class="link-card"><a href="https://app.trustic.com.br/" target="_blank">Trustic</a></div>
+    <div class="link-card"><a href="https://portaldatransparencia.gov.br/servidores/consulta?ordenarPor=nome&direcao=asc" target="_blank">Portal da Transparência</a></div>
+    <div class="link-card"><a href="https://servicos.receita.fazenda.gov.br/Servicos/CPF/ConsultaSituacao/ConsultaPublica.asp?Error=5" target="_blank">Consulta CPF / Receita Federal</a></div>
+    <div class="link-card"><a href="https://www.geolocation.com/" target="_blank">Geolocalização</a></div>
+    <div class="link-card"><a href="https://www.google.com.br/maps" target="_blank">Google Maps</a></div>
+    <div class="link-card"><a href="https://ww2.banktools.com.br/" target="_blank">Banktools</a></div>
+    <div class="link-card"><a href="https://docs.google.com/spreadsheets/d/1iyPYfKlvHkjTa7cUmefnkG0WXG8QhRZIJknK0bzPwbE/edit?gid=0#gid=0" target="_blank">Planilha</a></div>
+    <div class="link-card"><a href="https://desenv.facta.com.br/sistemaNovo/login.php" target="_blank">Facta</a></div>
+    <div class="link-card"><a href="https://presenca-v2.uy3.com.br/" target="_blank">UY3</a></div>	
+</div>
+
+<button class="checklist-btn" onclick="abrirChecklist()">Abrir Guia de Análise</button>
+
+<script>
+function abrirChecklist() {
+    const largura = 350;
+    const altura = 650;
+    const left = (screen.width / 2) - (largura / 2);
+    const top = (screen.height / 2) - (altura / 2);
+    window.open(
+        'checklist.html',
+        'Guia de Análise',
+        `width=${largura},height=${altura},top=${top},left=${left},resizable=yes,scrollbars=yes`
+    );
+}
+</script>
+
+</body>
+</html>
